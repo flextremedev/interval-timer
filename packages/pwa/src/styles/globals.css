@@ -1,2 +1,16 @@
 @tailwind base;
 @tailwind utilities;
+
+html {
+  height: 100%;
+}
+
+body,
+#__next {
+  height: inherit;
+}
+
+#__next {
+  display: flex;
+  flex-direction: column;
+}

@@ -1,12 +1,17 @@
 export default function Home() {
   return (
-    <main>
-      <h1 className="text-6xl">
-        Welcome to <a href="https://nextjs.org">Next.js!</a>
-      </h1>
-      <p>
-        Get started by editing <code>pages/index.tsx</code>
-      </p>
-    </main>
+    <>
+      <header />
+      <main className="flex-1">
+        <div className="h-full flex flex-col items-stretch bg-blue-600">
+          <div className="flex-1 bg-white rounded-b-3xl"></div>
+          <div className="flex flex-col items-center flex-[0.25] pt-8 ">
+            <button className="text-blue-600 bg-white text-xl px-8 h-14 rounded-full font-semibold">
+              Start
+            </button>
+          </div>
+        </div>
+      </main>
+    </>
   );
 }
