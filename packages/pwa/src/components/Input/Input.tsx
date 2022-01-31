@@ -1,4 +1,5 @@
 import * as React from 'react';
+import styles from './Input.module.css';
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -30,7 +31,7 @@ export function Input({
   const handleChange = (e) => {
     setInputDone(false);
     setValue(e.target.value);
-    onChange(e);
+    onChange?.(e);
   };
   const handleFocus = () => {
     inputRef.current.select();
@@ -44,10 +45,12 @@ export function Input({
     return inputDone && type === 'number' ? Number(value) : value;
   };
   return (
-    <div className="">
-      <label className="">{label}</label>
+    <div className="flex flex-col items-center">
+      <label className="text-blue-600 text-lg font-bold leading-7">
+        {label}
+      </label>
       <input
-        className=""
+        className="text-black text-6xl"
         type={type}
         style={{ width: `${(String(value).length || 1) * 0.625}em` }}
         value={evaluateValue()}
