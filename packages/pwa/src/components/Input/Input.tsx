@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from 'react';
 
 type InputProps = React.DetailedHTMLProps<
   React.InputHTMLAttributes<HTMLInputElement>,
@@ -30,9 +30,7 @@ export function Input({
   const handleChange = (e) => {
     setInputDone(false);
     setValue(e.target.value);
-    if (onChange) {
-      onChange(e);
-    }
+    onChange(e);
   };
   const handleFocus = () => {
     inputRef.current.select();

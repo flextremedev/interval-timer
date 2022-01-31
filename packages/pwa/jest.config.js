@@ -12,5 +12,6 @@ module.exports = {
       statements: 100,
     },
   },
+  setupFilesAfterEnv: ['<rootDir>/setup-tests.js'],
   testEnvironment: 'jsdom',
 };

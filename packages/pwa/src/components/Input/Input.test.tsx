@@ -40,7 +40,7 @@ describe('Input', () => {
       />
     );
     let input = getByDisplayValue(String(value));
-    expect(input).toBeTruthy();
+    expect(input).toBeInTheDocument();
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: '' } });
     expect(handleChange).toHaveBeenCalledWith(
@@ -59,6 +59,6 @@ describe('Input', () => {
         onBlur={handleBlur}
       />
     );
-    expect(getByDisplayValue('0')).toBeTruthy();
+    expect(getByDisplayValue('0')).toBeInTheDocument();
   });
 });

@@ -19,6 +19,8 @@
     "@flextremedev/eslint-config-react": "^0.3.0",
     "@flextremedev/eslint-config-react-typescript": "^0.3.0",
     "@flextremedev/eslint-config-typescript": "^0.3.0",
+    "@testing-library/jest-dom": "^5.16.1",
+    "@testing-library/react": "^12.1.2",
     "@typescript-eslint/eslint-plugin": "^5.10.1",
     "@typescript-eslint/parser": "^5.10.1",
     "autoprefixer": "^10.4.2",
