@@ -1,13 +1,15 @@
 import * as React from 'react';
-import styles from './Input.module.css';
 
-type InputProps = React.DetailedHTMLProps<
-  React.InputHTMLAttributes<HTMLInputElement>,
-  HTMLInputElement
+type InputProps = Omit<
+  React.DetailedHTMLProps<
+    React.InputHTMLAttributes<HTMLInputElement>,
+    HTMLInputElement
+  >,
+  'onBlur'
 > & {
-  value: string;
+  value: string | number;
   label: string;
-  onBlur?: (value: string) => void;
+  onBlur?: (value: string | number) => void;
   dataTestId?: string;
 };
 
