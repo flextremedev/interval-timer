@@ -1,3 +1,5 @@
+const path = require('path');
+
 module.exports = {
   displayName: {
     name: 'PWA',
@@ -11,6 +13,12 @@ module.exports = {
       lines: 100,
       statements: 100,
     },
+  },
+  transform: {
+    '.+\\.(js|jsx|ts|tsx)$': [
+      'babel-jest',
+      { configFile: path.resolve(__dirname, './.babelrc') },
+    ],
   },
   setupFilesAfterEnv: ['<rootDir>/setup-tests.js'],
   testEnvironment: 'jsdom',

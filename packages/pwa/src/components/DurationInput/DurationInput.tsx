@@ -8,7 +8,7 @@ type DurationInputProps = {
   value: Date;
   label?: string;
   readOnly?: boolean;
-  onChange: (value: Date) => void;
+  onChange?: (value: Date) => void;
   dataTestId?: string;
 };
 
@@ -44,13 +44,13 @@ export function DurationInput({
           formattedMinutes,
           targetValue
         );
-        onChange(setMinutes(new Date(value.valueOf()), formattedTargetValue));
+        onChange?.(setMinutes(new Date(value.valueOf()), formattedTargetValue));
       } else {
         const formattedTargetValue = addNumberAtEndShifting(
           formattedSeconds,
           targetValue
         );
-        onChange(setSeconds(new Date(value.valueOf()), formattedTargetValue));
+        onChange?.(setSeconds(new Date(value.valueOf()), formattedTargetValue));
       }
     }
   };
@@ -79,7 +79,7 @@ export function DurationInput({
   return (
     <div className="flex flex-col items-center">
       {label ? (
-        <label className="text-blue-600 text-lg font-bold ">{label}</label>
+        <label className="text-blue-600 text-lg font-bold">{label}</label>
       ) : null}
       <div className="flex flex-row justify-center items-center text-black text-6xl box-content w-full">
         <input

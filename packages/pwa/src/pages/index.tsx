@@ -1,9 +1,33 @@
 import { FormFields } from '../components/FormFields/FormFields';
-import { timerMachine } from '@interval-timer/core';
+import { timerMachine, timerStates, TTimerStates } from '@interval-timer/core';
 import { useMachine } from '@xstate/react';
+import * as React from 'react';
+import { Counter } from '../components/Counter/Counter';
 
 export default function Home() {
-  const [state, send] = useMachine(timerMachine);
+  const [state, send, service] = useMachine(timerMachine);
+
+  React.useEffect(() => {
+    const intervalWorker = new Worker('/intervalWorker.js');
+
+    intervalWorker.addEventListener('message', () => {
+      service.send({ type: 'TICK' });
+    });
+
+    service.subscribe((_state, event) => {
+      if (event && (event.type === 'START' || event.type === 'STOP')) {
+        intervalWorker.postMessage(event.type);
+      }
+    });
+  }, [service]);
+
+  const toggleTimer = () => {
+    if (state.value === timerStates.STOPPED) {
+      send('START');
+    } else {
+      send('STOP');
+    }
+  };
 
   const setRounds = (rounds: number) => {
     send({ type: 'SET_ROUNDS', rounds: Number(rounds) });
@@ -23,7 +47,8 @@ export default function Home() {
     });
   };
 
-  const { breakInterval, rounds, workInterval } = state.context;
+  const { breakInterval, rounds, workInterval, timeLeft, roundsLeft } =
+    state.context;
 
   return (
     <>
@@ -31,18 +56,29 @@ export default function Home() {
       <main className="flex-1">
         <div className="h-full flex flex-col items-stretch bg-blue-600">
           <div className="flex flex-col justify-center flex-1 bg-white rounded-b-3xl">
-            <FormFields
-              rounds={rounds}
-              onRoundsChange={setRounds}
-              breakInterval={breakInterval}
-              onBreakIntervalChange={setBreakInterval}
-              workInterval={workInterval}
-              onWorkIntervalChange={setWorkInterval}
-            ></FormFields>
+            {state.value === timerStates.STOPPED ? (
+              <FormFields
+                rounds={rounds}
+                onRoundsChange={setRounds}
+                breakInterval={breakInterval}
+                onBreakIntervalChange={setBreakInterval}
+                workInterval={workInterval}
+                onWorkIntervalChange={setWorkInterval}
+              ></FormFields>
+            ) : (
+              <Counter
+                timeLeft={timeLeft}
+                roundsLeft={roundsLeft}
+                rounds={rounds}
+              />
+            )}
           </div>
           <div className="flex flex-col items-center flex-[0.25] pt-8 ">
-            <button className="text-blue-600 bg-white text-xl px-8 h-14 rounded-full font-semibold">
-              Start
+            <button
+              className="text-blue-600 bg-white text-xl px-8 h-14 rounded-full font-semibold"
+              onClick={toggleTimer}
+            >
+              {state.matches(timerStates.STOPPED) ? 'Start' : 'Stop'}
             </button>
           </div>
         </div>
