@@ -21,7 +21,7 @@ export function FormFields({
   onWorkIntervalChange,
 }: FormFieldsProps) {
   return (
-    <div className="">
+    <div className="not-last:mb-4">
       <Input
         label="ROUNDS"
         type="number"
