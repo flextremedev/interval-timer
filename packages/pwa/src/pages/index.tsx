@@ -1,11 +1,32 @@
 import { FormFields } from '../components/FormFields/FormFields';
-import { timerMachine, timerStates, TTimerStates } from '@interval-timer/core';
+import { timerMachine, timerStates } from '@interval-timer/core';
 import { useMachine } from '@xstate/react';
 import * as React from 'react';
 import { Counter } from '../components/Counter/Counter';
+import { useBeep } from '../hooks/useBeep';
 
 export default function Home() {
-  const [state, send, service] = useMachine(timerMachine);
+  const { beepBreak, beepBreakLong, beepWork, beepWorkLong } = useBeep();
+  const [state, send, service] = useMachine(timerMachine, {
+    actions: {
+      initBreakEffect: () => {
+        beepBreakLong.play();
+      },
+      initWorkEffect: () => {
+        beepWorkLong.play();
+      },
+      countDownLastWorkEffect: () => {
+        beepWork.pause();
+        beepWork.currentTime = 0;
+        beepWork.play();
+      },
+      countDownLastBreakEffect: () => {
+        beepBreak.pause();
+        beepBreak.currentTime = 0;
+        beepBreak.play();
+      },
+    },
+  });
 
   React.useEffect(() => {
     const intervalWorker = new Worker('/intervalWorker.js');
