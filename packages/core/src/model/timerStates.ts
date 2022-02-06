@@ -1,6 +1,6 @@
 /* istanbul ignore file */
 /* covered by app integration test */
-type TTimerStates = {
+export type TTimerStates = {
   STOPPED: 'STOPPED';
   PREWORK: 'PREWORK';
   WORK: 'WORK';

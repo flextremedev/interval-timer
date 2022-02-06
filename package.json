@@ -11,6 +11,7 @@
     "mobile": "yarn workspace @interval-timer/mobile start",
     "mobile-test": "yarn workspace @interval-timer/mobile run test",
     "mobile-test-ci": "yarn workspace @interval-timer/mobile run test --runInBand --coverage",
+    "pwa": "yarn workspace @interval-timer/pwa",
     "web": "yarn workspace @interval-timer/web run start",
     "web-build": "yarn workspace @interval-timer/web run build",
     "web-lint": "yarn workspace @interval-timer/web run lint:fix",
@@ -35,7 +36,6 @@
     "typescript": "^4.2.3"
   },
   "resolutions": {
-    "babel-jest": "^26.0.0",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
     "webpack": "~4.44.0"
