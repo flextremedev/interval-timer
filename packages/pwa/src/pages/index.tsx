@@ -35,11 +35,15 @@ export default function Home() {
       service.send({ type: 'TICK' });
     });
 
-    service.subscribe((_state, event) => {
+    const subscription = service.subscribe(((_state, event) => {
       if (event && (event.type === 'START' || event.type === 'STOP')) {
         intervalWorker.postMessage(event.type);
       }
-    });
+    }) as any);
+
+    return () => {
+      subscription.unsubscribe();
+    };
   }, [service]);
 
   const toggleTimer = () => {
