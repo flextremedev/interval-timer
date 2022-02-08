@@ -4,6 +4,29 @@ import { useMachine } from '@xstate/react';
 import * as React from 'react';
 import { Counter } from '../components/Counter/Counter';
 import { useBeep } from '../hooks/useBeep';
+import { StateValue } from 'xstate';
+
+const getActiveTimeTotal = ({
+  breakInterval,
+  prepareTime,
+  value,
+  workInterval,
+}: {
+  value: StateValue;
+  breakInterval: Date;
+  workInterval: Date;
+  prepareTime: Date;
+}) => {
+  if (value === timerStates.WORK) {
+    return workInterval;
+  }
+
+  if (value === timerStates.BREAK) {
+    return breakInterval;
+  }
+
+  return prepareTime;
+};
 
 export default function Home() {
   const { beepBreak, beepBreakLong, beepWork, beepWorkLong } = useBeep();
@@ -72,8 +95,14 @@ export default function Home() {
     });
   };
 
-  const { breakInterval, rounds, workInterval, timeLeft, roundsLeft } =
-    state.context;
+  const {
+    breakInterval,
+    rounds,
+    workInterval,
+    timeLeft,
+    roundsLeft,
+    prepareTime,
+  } = state.context;
 
   return (
     <>
@@ -92,6 +121,12 @@ export default function Home() {
               ></FormFields>
             ) : (
               <Counter
+                timeTotal={getActiveTimeTotal({
+                  breakInterval,
+                  prepareTime,
+                  value: state.value,
+                  workInterval,
+                })}
                 timeLeft={timeLeft}
                 roundsLeft={roundsLeft}
                 rounds={rounds}
