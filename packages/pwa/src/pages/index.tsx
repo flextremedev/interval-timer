@@ -80,7 +80,7 @@ export default function Home() {
       <header />
       <main className="flex-1">
         <div className="h-full flex flex-col items-stretch bg-blue-600">
-          <div className="flex flex-col justify-center flex-1 bg-white rounded-b-3xl">
+          <div className="flex flex-col justify-center items-center flex-1 bg-white rounded-b-3xl">
             {state.value === timerStates.STOPPED ? (
               <FormFields
                 rounds={rounds}
