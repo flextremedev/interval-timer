@@ -18,11 +18,10 @@ jobs:
     steps:
       - checkout
       - run: yarn install
-      - run: yarn web-test-coverage
-      - run: yarn mobile-test-ci
+      - run: yarn pwa test --runInBand --coverage
       - run: yarn core-test-ci
       - codecov/upload:
-        file: packages/web/coverage/*.json
+        file: packages/pwa/coverage/*.json
 workflows:
   version: 2
   test:
