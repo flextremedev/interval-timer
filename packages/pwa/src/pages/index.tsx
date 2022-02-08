@@ -1,9 +1,33 @@
-import { FormFields } from '../components/FormFields/FormFields';
 import { timerMachine, timerStates } from '@interval-timer/core';
 import { useMachine } from '@xstate/react';
 import * as React from 'react';
+import { StateValue } from 'xstate';
+
 import { Counter } from '../components/Counter/Counter';
+import { FormFields } from '../components/FormFields/FormFields';
 import { useBeep } from '../hooks/useBeep';
+
+const getActiveTimeTotal = ({
+  breakInterval,
+  prepareTime,
+  value,
+  workInterval,
+}: {
+  value: StateValue;
+  breakInterval: Date;
+  workInterval: Date;
+  prepareTime: Date;
+}) => {
+  if (value === timerStates.WORK) {
+    return workInterval;
+  }
+
+  if (value === timerStates.BREAK) {
+    return breakInterval;
+  }
+
+  return prepareTime;
+};
 
 export default function Home() {
   const { beepBreak, beepBreakLong, beepWork, beepWorkLong } = useBeep();
@@ -72,15 +96,21 @@ export default function Home() {
     });
   };
 
-  const { breakInterval, rounds, workInterval, timeLeft, roundsLeft } =
-    state.context;
+  const {
+    breakInterval,
+    rounds,
+    workInterval,
+    timeLeft,
+    roundsLeft,
+    prepareTime,
+  } = state.context;
 
   return (
     <>
       <header />
       <main className="flex-1">
         <div className="h-full flex flex-col items-stretch bg-blue-600">
-          <div className="flex flex-col justify-center flex-1 bg-white rounded-b-3xl">
+          <div className="flex flex-col justify-center items-center flex-1 bg-white rounded-b-3xl">
             {state.value === timerStates.STOPPED ? (
               <FormFields
                 rounds={rounds}
@@ -92,6 +122,12 @@ export default function Home() {
               ></FormFields>
             ) : (
               <Counter
+                timeTotal={getActiveTimeTotal({
+                  breakInterval,
+                  prepareTime,
+                  value: state.value,
+                  workInterval,
+                })}
                 timeLeft={timeLeft}
                 roundsLeft={roundsLeft}
                 rounds={rounds}

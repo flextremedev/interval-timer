@@ -1,6 +1,6 @@
 export const useAudio = (url: string) => {
   /* istanbul ignore next */
-  if (typeof window === undefined) {
+  if (typeof window === 'undefined') {
     return { audio: undefined };
   }
 
