@@ -1,10 +1,11 @@
-import { FormFields } from '../components/FormFields/FormFields';
 import { timerMachine, timerStates } from '@interval-timer/core';
 import { useMachine } from '@xstate/react';
 import * as React from 'react';
-import { Counter } from '../components/Counter/Counter';
-import { useBeep } from '../hooks/useBeep';
 import { StateValue } from 'xstate';
+
+import { Counter } from '../components/Counter/Counter';
+import { FormFields } from '../components/FormFields/FormFields';
+import { useBeep } from '../hooks/useBeep';
 
 const getActiveTimeTotal = ({
   breakInterval,

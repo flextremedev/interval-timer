@@ -29,7 +29,7 @@ export const expectCountDownFrom = ({
     minutesLeft >= 1 || (firstRound && minutesLeft <= 0);
 
   for (let minutesLeft = minutes; minutesLeft >= toMinutes; minutesLeft--) {
-    let secondsToCountInMinute = shouldDisplayInitialSeconds(minutesLeft)
+    const secondsToCountInMinute = shouldDisplayInitialSeconds(minutesLeft)
       ? seconds
       : 59;
 
