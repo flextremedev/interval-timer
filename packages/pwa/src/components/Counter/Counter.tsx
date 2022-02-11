@@ -1,8 +1,10 @@
+import { getMinutes, getSeconds } from 'date-fns';
 import * as React from 'react';
 
-import { DurationInput } from '../DurationInput/DurationInput';
 import { Arc } from '../Arc/Arc';
-import { getMinutes, getSeconds } from 'date-fns';
+import { DurationInput } from '../DurationInput/DurationInput';
+
+const SECONDS_PER_MINUTE = 60;
 
 type CounterProps = {
   timeLeft: Date;
@@ -19,8 +21,15 @@ export function Counter({
 }: CounterProps) {
   const factor =
     1 -
-    (getSeconds(timeLeft) + getMinutes(timeLeft)) /
-      (getSeconds(timeTotal) + getMinutes(timeTotal));
+    (getSeconds(timeLeft) + getMinutes(timeLeft) * SECONDS_PER_MINUTE) /
+      (getSeconds(timeTotal) + getMinutes(timeTotal) * SECONDS_PER_MINUTE);
+
+  const stepLength =
+    1 -
+    (getSeconds(timeTotal) - 1 + getMinutes(timeTotal) * SECONDS_PER_MINUTE) /
+      (getSeconds(timeTotal) + getMinutes(timeTotal) * SECONDS_PER_MINUTE);
+
+  const transitionCompensationBasedFactor = factor + factor * stepLength;
 
   return (
     <div>
@@ -31,7 +40,10 @@ export function Counter({
         }/${rounds}`}</span>
       </div>
       <div className="flex flex-col justify-center items-center relative w-72 h-72">
-        <Arc className="absolute origin-center" factor={factor} />
+        <Arc
+          className="absolute origin-center"
+          factor={transitionCompensationBasedFactor}
+        />
         <div className="z-[1]">
           <DurationInput value={timeLeft} readOnly dataTestId={'time-left'} />
         </div>
