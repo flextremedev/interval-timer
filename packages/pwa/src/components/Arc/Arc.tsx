@@ -25,7 +25,11 @@ export function Arc({ factor, ...restProps }: ArcProps) {
         stroke="#0057FF"
         strokeWidth={4}
         className="origin-center -rotate-90"
-        style={{ strokeDasharray: 877, strokeDashoffset: factor * 877 }}
+        style={{
+          strokeDasharray: 877,
+          strokeDashoffset: factor * 877,
+          transition: 'all 1s linear',
+        }}
       />
     </svg>
   );
