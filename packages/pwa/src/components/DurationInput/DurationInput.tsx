@@ -1,6 +1,5 @@
-import * as React from 'react';
-
 import { format, setSeconds, setMinutes } from 'date-fns';
+import * as React from 'react';
 
 import { addNumberAtEndShifting } from './addNumberAtEndShifting';
 
@@ -93,7 +92,7 @@ export function DurationInput({
           onFocus={handleMinutesSelect}
           onSelect={handleMinutesSelect}
           data-testid={dataTestId && `${dataTestId}-minutes`}
-          className="text-black text-center outline-none"
+          className="text-black text-center outline-none w-24"
           ref={minutesRef}
           readOnly={readOnly}
           size={2}
@@ -111,7 +110,7 @@ export function DurationInput({
           onFocus={handleSecondsSelect}
           onSelect={handleSecondsSelect}
           data-testid={dataTestId && `${dataTestId}-seconds`}
-          className="text-black text-center outline-none"
+          className="text-black text-center outline-none w-24"
           ref={secondsRef}
           readOnly={readOnly}
           size={2}
