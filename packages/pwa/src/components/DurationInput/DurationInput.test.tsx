@@ -1,6 +1,5 @@
-import * as React from 'react';
-
 import { render, fireEvent, cleanup } from '@testing-library/react';
+import * as React from 'react';
 
 import { DurationInput } from './DurationInput';
 describe('DurationInput', () => {

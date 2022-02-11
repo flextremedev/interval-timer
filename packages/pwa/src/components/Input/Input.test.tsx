@@ -1,6 +1,5 @@
-import * as React from 'react';
-
 import { render, fireEvent } from '@testing-library/react';
+import * as React from 'react';
 
 import { Input } from './Input';
 
@@ -39,7 +38,7 @@ describe('Input', () => {
         onBlur={handleBlur}
       />
     );
-    let input = getByDisplayValue(String(value));
+    const input = getByDisplayValue(String(value));
     expect(input).toBeInTheDocument();
     fireEvent.focus(input);
     fireEvent.change(input, { target: { value: '' } });
