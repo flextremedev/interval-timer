@@ -52,7 +52,7 @@ export function Input({
         {label}
       </label>
       <input
-        className="text-black text-6xl"
+        className="text-black text-6xl outline-none"
         type={type}
         style={{ width: `${(String(value).length || 1) * 0.625}em` }}
         value={evaluateValue()}
