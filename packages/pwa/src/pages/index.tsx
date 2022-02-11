@@ -1,11 +1,15 @@
 import { timerMachine, timerStates } from '@interval-timer/core';
 import { useMachine } from '@xstate/react';
+import { format } from 'date-fns';
+import Head from 'next/head';
 import * as React from 'react';
 import { StateValue } from 'xstate';
 
 import { Counter } from '../components/Counter/Counter';
 import { FormFields } from '../components/FormFields/FormFields';
 import { useBeep } from '../hooks/useBeep';
+
+const DEFAULT_DOCUMENT_TITLE = 'Interval Timer';
 
 const getActiveTimeTotal = ({
   breakInterval,
@@ -107,6 +111,13 @@ export default function Home() {
 
   return (
     <>
+      <Head>
+        <title>
+          {!state.matches(timerStates.STOPPED)
+            ? `${format(timeLeft, 'mm:ss')} | ${DEFAULT_DOCUMENT_TITLE}`
+            : DEFAULT_DOCUMENT_TITLE}
+        </title>
+      </Head>
       <header />
       <main className="flex-1">
         <div className="h-full flex flex-col items-stretch bg-blue-600">
