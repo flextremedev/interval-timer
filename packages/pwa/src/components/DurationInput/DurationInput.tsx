@@ -92,7 +92,7 @@ export function DurationInput({
           onFocus={handleMinutesSelect}
           onSelect={handleMinutesSelect}
           data-testid={dataTestId && `${dataTestId}-minutes`}
-          className="text-black text-center outline-none w-24"
+          className="text-black text-center outline-none w-24 bg-transparent"
           ref={minutesRef}
           readOnly={readOnly}
           size={2}
@@ -110,7 +110,7 @@ export function DurationInput({
           onFocus={handleSecondsSelect}
           onSelect={handleSecondsSelect}
           data-testid={dataTestId && `${dataTestId}-seconds`}
-          className="text-black text-center outline-none w-24"
+          className="text-black text-center outline-none w-24 bg-transparent"
           ref={secondsRef}
           readOnly={readOnly}
           size={2}
