@@ -1,10 +1,20 @@
+import { animated, easings, useSpring } from '@react-spring/web';
 import * as React from 'react';
 
 type ArcProps = React.SVGProps<SVGSVGElement> & {
-  factor: number;
+  progress: number;
+  progressPerSecond: number;
 };
 
-export function Arc({ factor, ...restProps }: ArcProps) {
+const strokeLength = 877;
+
+export function Arc({ progress, progressPerSecond, ...restProps }: ArcProps) {
+  const { strokeDashoffset } = useSpring({
+    from: { strokeDashoffset: (progress / 100) * strokeLength },
+    strokeDashoffset: (progress / 100 + progressPerSecond / 100) * strokeLength,
+    config: { duration: 1000, easing: easings.linear },
+  });
+
   return (
     <svg
       fill="none"
@@ -20,15 +30,17 @@ export function Arc({ factor, ...restProps }: ArcProps) {
         stroke="#CDD9EE"
         strokeWidth={4}
       />
-      <path
-        d="M280 141a138.998 138.998 0 01-237.288 98.288A139.01 139.01 0 012 141 138.997 138.997 0 01141 2a138.997 138.997 0 01139 139h0z"
+      <animated.circle
+        cx={141}
+        cy={141}
+        r={139}
         stroke="#0057FF"
         strokeWidth={4}
-        className="origin-center -rotate-90"
         style={{
-          strokeDasharray: 877,
-          strokeDashoffset: factor * 877,
-          transition: 'all 1s linear',
+          transform: 'rotateZ(-90deg)',
+          transformOrigin: '50% 50%',
+          strokeDasharray: strokeLength,
+          strokeDashoffset,
         }}
       />
     </svg>

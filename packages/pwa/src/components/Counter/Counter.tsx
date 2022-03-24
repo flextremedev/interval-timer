@@ -19,17 +19,16 @@ export function Counter({
   roundsLeft,
   rounds,
 }: CounterProps) {
-  const factor =
-    1 -
-    (getSeconds(timeLeft) + getMinutes(timeLeft) * SECONDS_PER_MINUTE) /
-      (getSeconds(timeTotal) + getMinutes(timeTotal) * SECONDS_PER_MINUTE);
+  const timeLeftInSeconds =
+    getSeconds(timeLeft) + getMinutes(timeLeft) * SECONDS_PER_MINUTE;
+  const timeLeftAdvancedByOneInSeconds =
+    getSeconds(timeTotal) - 1 + getMinutes(timeTotal) * SECONDS_PER_MINUTE;
+  const timeTotalInSeconds =
+    getSeconds(timeTotal) + getMinutes(timeTotal) * SECONDS_PER_MINUTE;
 
-  const stepLength =
-    1 -
-    (getSeconds(timeTotal) - 1 + getMinutes(timeTotal) * SECONDS_PER_MINUTE) /
-      (getSeconds(timeTotal) + getMinutes(timeTotal) * SECONDS_PER_MINUTE);
+  const factor = 1 - timeLeftInSeconds / timeTotalInSeconds;
 
-  const transitionCompensationBasedFactor = factor + factor * stepLength;
+  const stepLength = 1 - timeLeftAdvancedByOneInSeconds / timeTotalInSeconds;
 
   return (
     <div>
@@ -41,8 +40,10 @@ export function Counter({
       </div>
       <div className="flex flex-col justify-center items-center relative w-72 h-72">
         <Arc
+          key={factor === 0 ? 'arc-from-start' : 'arc-running'}
           className="absolute origin-center"
-          factor={transitionCompensationBasedFactor}
+          progress={factor * 100}
+          progressPerSecond={stepLength * 100}
         />
         <div className="z-[1]">
           <DurationInput value={timeLeft} readOnly dataTestId={'time-left'} />
