@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@interval-timer/core": "*",
+    "@react-spring/web": "^9.4.4",
     "@xstate/react": "^0.8.1",
     "date-fns": "^2.28.0",
     "next": "latest",
