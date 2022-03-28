@@ -78,9 +78,9 @@ export function DurationInput({
   return (
     <div className="flex flex-col items-center">
       {label ? (
-        <label className="text-blue-600 text-lg font-bold">{label}</label>
+        <label className="text-blue-600 text-3xl tracking-wider">{label}</label>
       ) : null}
-      <div className="flex flex-row justify-center items-center text-black text-6xl box-content w-full">
+      <div className="flex flex-row justify-center items-center text-black text-7xl box-content w-full">
         <input
           type="text"
           name="minutes"
@@ -92,7 +92,7 @@ export function DurationInput({
           onFocus={handleMinutesSelect}
           onSelect={handleMinutesSelect}
           data-testid={dataTestId && `${dataTestId}-minutes`}
-          className="text-black text-center outline-none w-24 bg-transparent"
+          className="text-black text-center outline-none w-16 bg-transparent"
           ref={minutesRef}
           readOnly={readOnly}
           size={2}
@@ -110,7 +110,7 @@ export function DurationInput({
           onFocus={handleSecondsSelect}
           onSelect={handleSecondsSelect}
           data-testid={dataTestId && `${dataTestId}-seconds`}
-          className="text-black text-center outline-none w-24 bg-transparent"
+          className="text-black text-center outline-none w-16 bg-transparent"
           ref={secondsRef}
           readOnly={readOnly}
           size={2}
