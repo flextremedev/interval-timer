@@ -13,7 +13,12 @@ const notLast = plugin(({ addVariant, e }) => {
 module.exports = {
   content: ['./src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        white: '#F7F9FD',
+        black: '#14223D',
+      },
+    },
   },
   plugins: [notLast],
 };
