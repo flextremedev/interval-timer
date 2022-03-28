@@ -33,7 +33,7 @@ export function Counter({
   return (
     <div>
       <div className="flex flex-col items-center mb-8 lg:mb-20 z-[1]">
-        <span className="text-blue-600  text-3xl tracking-wider mb-1">
+        <span className="text-blue-600  text-2xl tracking-wider mb-1">
           ROUND
         </span>
         <span className="text-4xl text-black" data-testid={'round'}>{`${

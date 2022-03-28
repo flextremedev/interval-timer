@@ -78,7 +78,7 @@ export function DurationInput({
   return (
     <div className="flex flex-col items-center">
       {label ? (
-        <label className="text-blue-600 text-3xl tracking-wider">{label}</label>
+        <label className="text-blue-600 text-2xl tracking-wider">{label}</label>
       ) : null}
       <div className="flex flex-row justify-center items-center text-black text-7xl box-content w-full">
         <input

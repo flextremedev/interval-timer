@@ -48,7 +48,7 @@ export function Input({
   };
   return (
     <div className="flex flex-col items-center">
-      <label className="text-blue-600 text-3xl leading-7 tracking-wider">
+      <label className="text-blue-600 text-2xl leading-7 tracking-wider">
         {label}
       </label>
       <input
