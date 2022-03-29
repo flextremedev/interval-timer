@@ -6,9 +6,14 @@ import { makeAdvanceDateNowBy } from '../test-utils/makeAdvanceDateNowBy';
 import { renderApp } from '../test-utils/renderApp';
 
 const startDate = 1587574443099;
+const play = jest.fn();
+
+HTMLMediaElement.prototype.play = play;
+HTMLMediaElement.prototype.pause = jest.fn();
 
 describe('Home', () => {
   beforeEach(() => {
+    HTMLMediaElement.prototype.play = play;
     window.Worker = MockWorker as any;
     jest.useFakeTimers('modern');
   });
@@ -113,6 +118,8 @@ describe('Home', () => {
       timeLeftMinutes,
       timeLeftSeconds,
     });
+
+    expect(play).toHaveBeenCalledTimes(15);
   });
 
   it('should stop timer when clicking button again', () => {
@@ -180,5 +187,6 @@ describe('Home', () => {
     });
 
     fireEvent.click(startButton);
+    expect(play).toHaveBeenCalledTimes(2);
   });
 });
