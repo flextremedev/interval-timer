@@ -14,17 +14,7 @@ describe('Input', () => {
     fireEvent.change(input, { target: { value: 'Hello!' } });
     expect(handleChange).toHaveBeenCalled();
   });
-  it('should have width of value.length times 0.625em and at least 0.625em', () => {
-    const value = 'Hello';
-    const { getByDisplayValue, rerender } = render(
-      <Input value={value} readOnly label="Test input" />
-    );
-    let input = getByDisplayValue(value);
-    expect(input.style.width).toBe('3.125em');
-    rerender(<Input value="" readOnly label="Test input" />);
-    input = getByDisplayValue('');
-    expect(input.style.width).toBe('0.625em');
-  });
+
   test('type number should work correctly and allow no empty input after blur', () => {
     const handleChange = jest.fn();
     const handleBlur = jest.fn();
