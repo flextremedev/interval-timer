@@ -9,7 +9,7 @@ import { Counter } from '../components/Counter/Counter';
 import { FormFields } from '../components/FormFields/FormFields';
 import { useBeep } from '../hooks/useBeep';
 
-const DEFAULT_DOCUMENT_TITLE = 'Interval Timer';
+const DEFAULT_DOCUMENT_TITLE = 'Flextreme Interval Timer';
 
 const getActiveTimeTotal = ({
   breakInterval,
