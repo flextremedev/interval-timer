@@ -48,13 +48,13 @@ export function Input({
   };
   return (
     <div className="flex flex-col items-center">
-      <label className="text-blue-600 text-lg font-bold leading-7">
+      <label className="text-blue-600 text-2xl leading-7 tracking-wider">
         {label}
       </label>
       <input
-        className="text-black text-6xl outline-none"
+        className="text-black text-7xl outline-none text-center bg-transparent"
         type={type}
-        style={{ width: `${(String(value).length || 1) * 0.625}em` }}
+        style={{ width: `${(String(value).length || 1) * 0.34}em` }}
         value={evaluateValue()}
         onChange={handleChange}
         onFocus={handleFocus}

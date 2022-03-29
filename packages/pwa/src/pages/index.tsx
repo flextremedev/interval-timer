@@ -147,10 +147,10 @@ export default function Home() {
           </div>
           <div className="flex flex-col items-center flex-[0.25] pt-8 ">
             <button
-              className="text-blue-600 bg-white text-xl px-8 h-14 rounded-full font-semibold"
+              className="text-blue-600 bg-white text-3xl px-12 h-16 rounded-full tracking-widest"
               onClick={toggleTimer}
             >
-              {state.matches(timerStates.STOPPED) ? 'Start' : 'Stop'}
+              {state.matches(timerStates.STOPPED) ? 'START' : 'STOP'}
             </button>
           </div>
         </div>

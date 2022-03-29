@@ -1,15 +1,10 @@
-@import url('https://rsms.me/inter/inter.css');
-@supports (font-variation-settings: normal) {
-  html {
-    font-family: 'Inter var', sans-serif;
-  }
-}
+@import url('https://fonts.googleapis.com/css2?family=League+Gothic&display=swap');
 @tailwind base;
 @tailwind utilities;
 
 html {
   height: 100%;
-  font-family: 'Inter', sans-serif;
+  font-family: 'League Gothic', sans-serif;
 }
 
 body,
