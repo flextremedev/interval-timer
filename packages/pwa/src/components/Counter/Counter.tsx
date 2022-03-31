@@ -40,7 +40,7 @@ export function Counter({
           rounds - roundsLeft
         }/${rounds}`}</span>
       </div>
-      <div className="flex flex-col justify-center items-center relative w-64 sm:w-72 lg:w-80 h-64 sm:h-72 lg:h-80">
+      <div className="flex flex-col justify-center items-center relative w-72  lg:w-80 h-72 lg:h-80 mb-16">
         <Arc
           key={factor === 0 ? 'arc-from-start' : 'arc-running'}
           className="absolute origin-center"

@@ -120,8 +120,9 @@ export default function Home() {
       </Head>
       <header />
       <main className="flex-1">
-        <div className="h-full flex flex-col items-stretch bg-blue-600">
-          <div className="flex flex-col justify-center items-center flex-1 bg-white rounded-b-3xl">
+        <div className="h-full flex justify-center flex-col items-center bg-white">
+          <div className="flex-[0.75]" />
+          <div className="flex-1">
             {state.value === timerStates.STOPPED ? (
               <FormFields
                 rounds={rounds}
@@ -145,9 +146,9 @@ export default function Home() {
               />
             )}
           </div>
-          <div className="flex flex-col items-center flex-[0.25] pt-8 ">
+          <div className="flex-1 flex flex-col justify-center">
             <button
-              className="text-blue-600 bg-white text-3xl px-12 h-16 rounded-full tracking-widest"
+              className="text-white bg-blue-600 text-2xl px-12 h-14 rounded-full tracking-widest"
               onClick={toggleTimer}
             >
               {state.matches(timerStates.STOPPED) ? 'START' : 'STOP'}
