@@ -22,14 +22,7 @@ export function Arc({ progress, progressPerSecond, ...restProps }: ArcProps) {
       viewBox="0 0 282 282"
       {...restProps}
     >
-      <circle
-        cx={141}
-        cy={141}
-        r={139}
-        fill="#FBFCFE"
-        stroke="#CDD9EE"
-        strokeWidth={4}
-      />
+      <circle cx={141} cy={141} r={139} stroke="#CDD9EE" strokeWidth={4} />
       <animated.circle
         cx={141}
         cy={141}

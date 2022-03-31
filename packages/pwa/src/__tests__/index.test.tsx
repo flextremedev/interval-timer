@@ -71,15 +71,15 @@ describe('Home', () => {
 
     fireEvent.click(startButton);
 
-    const timeLeftMinutes = screen.getByTestId(
+    const timeLeftMinutes = screen.getAllByTestId(
       'time-left-minutes'
-    ) as HTMLInputElement;
+    )[0] as HTMLInputElement;
 
-    const timeLeftSeconds = screen.getByTestId(
+    const timeLeftSeconds = screen.getAllByTestId(
       'time-left-seconds'
-    ) as HTMLInputElement;
+    )[0] as HTMLInputElement;
 
-    const round = screen.getByTestId('round');
+    const round = screen.getAllByTestId('round')[0];
 
     expect(round.textContent).toBe('0/2');
 
@@ -169,10 +169,10 @@ describe('Home', () => {
 
     fireEvent.click(startButton);
 
-    const timeLeftSeconds = screen.getByTestId(
+    const timeLeftSeconds = screen.getAllByTestId(
       'time-left-seconds'
-    ) as HTMLInputElement;
-    const round = screen.getByTestId('round');
+    )[0] as HTMLInputElement;
+    const round = screen.getAllByTestId('round')[0];
 
     expect(round.textContent).toBe('0/2');
 
@@ -186,7 +186,7 @@ describe('Home', () => {
       timeLeftSeconds,
     });
 
-    fireEvent.click(startButton);
+    fireEvent.click(screen.getAllByRole('button', { name: /stop/i })[0]);
     expect(play).toHaveBeenCalledTimes(2);
   });
 });

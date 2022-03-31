@@ -6,6 +6,7 @@ import * as React from 'react';
 import { StateValue } from 'xstate';
 
 import { Counter } from '../components/Counter/Counter';
+import { Form } from '../components/Form/Form';
 import { FormFields } from '../components/FormFields/FormFields';
 import { useBeep } from '../hooks/useBeep';
 
@@ -74,12 +75,12 @@ export default function Home() {
     };
   }, [service]);
 
-  const toggleTimer = () => {
-    if (state.value === timerStates.STOPPED) {
-      send('START');
-    } else {
-      send('STOP');
-    }
+  const startTimer = () => {
+    send('START');
+  };
+
+  const stopTimer = () => {
+    send('STOP');
   };
 
   const setRounds = (rounds: number) => {
@@ -119,42 +120,31 @@ export default function Home() {
         </title>
       </Head>
       <header />
-      <main className="flex-1">
-        <div className="h-full flex justify-center flex-col items-center bg-white">
-          <div className="flex-[0.75]" />
-          <div className="flex-1">
-            {state.value === timerStates.STOPPED ? (
-              <FormFields
-                rounds={rounds}
-                onRoundsChange={setRounds}
-                breakInterval={breakInterval}
-                onBreakIntervalChange={setBreakInterval}
-                workInterval={workInterval}
-                onWorkIntervalChange={setWorkInterval}
-              ></FormFields>
-            ) : (
-              <Counter
-                timeTotal={getActiveTimeTotal({
-                  breakInterval,
-                  prepareTime,
-                  value: state.value,
-                  workInterval,
-                })}
-                timeLeft={timeLeft}
-                roundsLeft={roundsLeft}
-                rounds={rounds}
-              />
-            )}
-          </div>
-          <div className="flex-1 flex flex-col justify-center">
-            <button
-              className="text-white bg-blue-600 text-2xl px-12 h-14 rounded-full tracking-widest"
-              onClick={toggleTimer}
-            >
-              {state.matches(timerStates.STOPPED) ? 'START' : 'STOP'}
-            </button>
-          </div>
-        </div>
+      <main className="w-full flex flex-1 bg-white justify-center">
+        {state.value === timerStates.STOPPED ? (
+          <Form
+            breakInterval={breakInterval}
+            rounds={rounds}
+            setBreakInterval={setBreakInterval}
+            setRounds={setRounds}
+            setWorkInterval={setWorkInterval}
+            onStart={startTimer}
+            workInterval={workInterval}
+          />
+        ) : (
+          <Counter
+            timeTotal={getActiveTimeTotal({
+              breakInterval,
+              prepareTime,
+              value: state.value,
+              workInterval,
+            })}
+            timeLeft={timeLeft}
+            roundsLeft={roundsLeft}
+            rounds={rounds}
+            onStop={stopTimer}
+          />
+        )}
       </main>
     </>
   );
