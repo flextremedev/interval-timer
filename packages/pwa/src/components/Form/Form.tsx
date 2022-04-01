@@ -21,7 +21,7 @@ export const Form = ({
   workInterval,
 }: FormProps) => {
   return (
-    <div className="h-full w-full flex max-w-screen-md justify-center flex-col items-center">
+    <div className="h-full w-full flex max-w-screen-xl justify-center flex-col items-center">
       <div className="flex-[0.75] w-full flex">
         <div className="h-20 w-full flex justify-end items-center px-6">
           <ThemeToggle />

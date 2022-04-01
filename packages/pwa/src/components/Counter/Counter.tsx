@@ -34,13 +34,13 @@ export function Counter({
   const stepLength = 1 - timeLeftAdvancedByOneInSeconds / timeTotalInSeconds;
 
   const counterDesktop = (
-    <div className="h-full w-full lg:max-w-screen-md hidden lg:flex justify-between flex-col items-center">
+    <div className="h-full w-full lg:max-w-screen-xl hidden lg:flex justify-between flex-col items-center">
       <div className="w-full flex">
         <div className="h-20 w-full flex justify-end items-center px-6">
           <ThemeToggle />
         </div>
       </div>
-      <div className="flex flex-col justify-between w-full h-3/6 items-center relative">
+      <div className="flex flex-col lg:max-w-screen-md justify-between w-full h-3/6 items-center relative">
         <div className="flex flex-1 flex-col items-center z-[1]">
           <span className="text-blue-600 text-3xl tracking-wider">ROUND</span>
           <span
