@@ -3,6 +3,7 @@ import * as React from 'react';
 
 import { Arc } from '../Arc/Arc';
 import { DurationInput } from '../DurationInput/DurationInput';
+import { Logo } from '../Logo/Logo';
 import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 
 const SECONDS_PER_MINUTE = 60;
@@ -36,7 +37,8 @@ export function Counter({
   const counterDesktop = (
     <div className="h-full w-full lg:max-w-screen-xl hidden lg:flex justify-between flex-col items-center">
       <div className="w-full flex">
-        <div className="h-20 w-full flex justify-end items-center px-6">
+        <div className="h-20 w-full flex justify-between items-center px-6">
+          <Logo />
           <ThemeToggle />
         </div>
       </div>
@@ -72,7 +74,8 @@ export function Counter({
   const counterMobile = (
     <div className="h-full w-full flex lg:hidden justify-center flex-col items-center">
       <div className="flex-[0.75] w-full flex">
-        <div className="h-20 w-full flex justify-end items-center px-6">
+        <div className="h-20 w-full flex justify-between items-center px-6">
+          <Logo />
           <ThemeToggle />
         </div>
       </div>

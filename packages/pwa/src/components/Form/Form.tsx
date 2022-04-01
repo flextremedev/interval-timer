@@ -1,4 +1,5 @@
 import { FormFields } from '../FormFields/FormFields';
+import { Logo } from '../Logo/Logo';
 import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 
 type FormProps = {
@@ -23,7 +24,8 @@ export const Form = ({
   return (
     <div className="h-full w-full flex max-w-screen-xl justify-center flex-col items-center">
       <div className="flex-[0.75] w-full flex">
-        <div className="h-20 w-full flex justify-end items-center px-6">
+        <div className="h-20 w-full flex justify-between items-center px-6">
+          <Logo />
           <ThemeToggle />
         </div>
       </div>
