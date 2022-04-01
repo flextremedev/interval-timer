@@ -1,4 +1,5 @@
 import { FormFields } from '../FormFields/FormFields';
+import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
 
 type FormProps = {
   rounds: number;
@@ -20,8 +21,12 @@ export const Form = ({
   workInterval,
 }: FormProps) => {
   return (
-    <div className="h-full flex justify-center flex-col items-center">
-      <div className="flex-[0.75]" />
+    <div className="h-full w-full flex max-w-screen-md justify-center flex-col items-center">
+      <div className="flex-[0.75] w-full flex">
+        <div className="h-20 w-full flex justify-end items-center px-6">
+          <ThemeToggle />
+        </div>
+      </div>
       <div className="flex-1">
         <FormFields
           rounds={rounds}

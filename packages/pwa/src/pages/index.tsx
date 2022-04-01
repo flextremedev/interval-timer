@@ -7,7 +7,6 @@ import { StateValue } from 'xstate';
 
 import { Counter } from '../components/Counter/Counter';
 import { Form } from '../components/Form/Form';
-import { FormFields } from '../components/FormFields/FormFields';
 import { useBeep } from '../hooks/useBeep';
 
 const DEFAULT_DOCUMENT_TITLE = 'Flextreme Interval Timer';
