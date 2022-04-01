@@ -44,7 +44,11 @@ export const ThemeToggle = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
   return (
-    <button aria-label="theme-toggle" className="" onClick={toggleTheme}>
+    <button
+      aria-label="theme-toggle"
+      style={{ WebkitTapHighlightColor: 'transparent' }}
+      onClick={toggleTheme}
+    >
       {theme === 'light' ? <MoonIcon /> : <SunIcon />}
     </button>
   );
