@@ -9,6 +9,7 @@ type DurationInputProps = {
   readOnly?: boolean;
   onChange?: (value: Date) => void;
   dataTestId?: string;
+  inputClassName?: string;
 };
 
 export function DurationInput({
@@ -75,12 +76,23 @@ export function DurationInput({
   const handlePaste = (e) => {
     e.preventDefault();
   };
+
+  const inputClassName = `text-black dark:text-white text-center outline-none w-12 ${
+    readOnly ? 'lg:w-32' : 'lg:w-20'
+  } bg-transparent tracking-wide`;
+
   return (
     <div className="flex flex-col items-center">
       {label ? (
-        <label className="text-blue-600 text-2xl tracking-wider">{label}</label>
+        <label className="text-blue-600 text-2xl lg:text-3xl tracking-wider">
+          {label}
+        </label>
       ) : null}
-      <div className="flex flex-row justify-center items-center text-black text-7xl box-content w-full">
+      <div
+        className={`flex flex-row justify-center items-center text-black dark:text-white text-6xl ${
+          readOnly ? 'lg:text-[180px]' : 'lg:text-8xl'
+        } box-content w-full`}
+      >
         <input
           type="text"
           name="minutes"
@@ -92,7 +104,7 @@ export function DurationInput({
           onFocus={handleMinutesSelect}
           onSelect={handleMinutesSelect}
           data-testid={dataTestId && `${dataTestId}-minutes`}
-          className="text-black text-center outline-none w-16 bg-transparent"
+          className={inputClassName}
           ref={minutesRef}
           readOnly={readOnly}
           size={2}
@@ -110,7 +122,7 @@ export function DurationInput({
           onFocus={handleSecondsSelect}
           onSelect={handleSecondsSelect}
           data-testid={dataTestId && `${dataTestId}-seconds`}
-          className="text-black text-center outline-none w-16 bg-transparent"
+          className={inputClassName}
           ref={secondsRef}
           readOnly={readOnly}
           size={2}

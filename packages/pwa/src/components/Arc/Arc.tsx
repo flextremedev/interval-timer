@@ -26,9 +26,9 @@ export function Arc({ progress, progressPerSecond, ...restProps }: ArcProps) {
         cx={141}
         cy={141}
         r={139}
-        fill="#FBFCFE"
-        stroke="#CDD9EE"
+        stroke="#0057FF"
         strokeWidth={4}
+        strokeOpacity={0.25}
       />
       <animated.circle
         cx={141}
