@@ -120,7 +120,7 @@ export default function Home() {
         </title>
       </Head>
       <header />
-      <main className="w-full flex flex-1 bg-white justify-center">
+      <main className="w-full flex flex-1 bg-white dark:bg-black justify-center">
         {state.value === timerStates.STOPPED ? (
           <Form
             breakInterval={breakInterval}

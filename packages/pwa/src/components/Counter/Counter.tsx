@@ -36,11 +36,9 @@ export function Counter({
     <div className="h-full w-full lg:max-w-screen-md hidden lg:flex justify-center flex-col items-center">
       <div className="flex flex-col justify-between w-full h-3/6 items-center relative">
         <div className="flex flex-1 flex-col items-center z-[1]">
-          <span className="text-blue-600 text-2xl lg:text-3xl tracking-wider">
-            ROUND
-          </span>
+          <span className="text-blue-600 text-3xl tracking-wider">ROUND</span>
           <span
-            className="text-4xl lg:text-5xl text-black"
+            className="text-black dark:text-white text-5xl"
             data-testid={'round'}
           >{`${rounds - roundsLeft}/${rounds}`}</span>
         </div>
@@ -68,15 +66,16 @@ export function Counter({
     <div className="h-full flex lg:hidden justify-center flex-col items-center">
       <div className="flex-[0.75]" />
       <div className="flex-1">
-        <div className="flex flex-col items-center mb-8 lg:mb-20 z-[1]">
-          <span className="text-blue-600  text-2xl tracking-wider mb-1">
+        <div className="flex flex-col items-center mb-8 z-[1]">
+          <span className="text-blue-600 text-2xl tracking-wider mb-1">
             ROUND
           </span>
-          <span className="text-4xl text-black" data-testid={'round'}>{`${
-            rounds - roundsLeft
-          }/${rounds}`}</span>
+          <span
+            className="text-4xl text-black dark:text-white"
+            data-testid={'round'}
+          >{`${rounds - roundsLeft}/${rounds}`}</span>
         </div>
-        <div className="flex flex-col justify-center items-center relative w-72 lg:w-80 h-72 lg:h-80 mb-16">
+        <div className="flex flex-col justify-center items-center relative w-72 h-72 mb-16">
           <Arc
             key={factor === 0 ? 'arc-from-start' : 'arc-running'}
             className="absolute origin-center"
