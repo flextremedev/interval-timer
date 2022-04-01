@@ -1,10 +1,18 @@
 import { getMinutes, getSeconds } from 'date-fns';
+import dynamic from 'next/dynamic';
 import * as React from 'react';
 
 import { Arc } from '../Arc/Arc';
 import { DurationInput } from '../DurationInput/DurationInput';
 import { Logo } from '../Logo/Logo';
-import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
+
+const ThemeToggle = dynamic(
+  () =>
+    import('../ThemeToggle/ThemeToggle').then((module) => module.ThemeToggle),
+  {
+    ssr: false,
+  }
+);
 
 const SECONDS_PER_MINUTE = 60;
 

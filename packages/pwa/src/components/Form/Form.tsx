@@ -1,6 +1,15 @@
+import dynamic from 'next/dynamic';
+
 import { FormFields } from '../FormFields/FormFields';
 import { Logo } from '../Logo/Logo';
-import { ThemeToggle } from '../ThemeToggle/ThemeToggle';
+
+const ThemeToggle = dynamic(
+  () =>
+    import('../ThemeToggle/ThemeToggle').then((module) => module.ThemeToggle),
+  {
+    ssr: false,
+  }
+);
 
 type FormProps = {
   rounds: number;
