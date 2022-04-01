@@ -32,9 +32,9 @@ export const Form = ({
           onWorkIntervalChange={setWorkInterval}
         />
       </div>
-      <div className="flex-1 flex flex-col justify-center">
+      <div className="flex-1 flex flex-col justify-center lg:justify-start lg:mt-12 ">
         <button
-          className="text-white bg-blue-600 text-2xl px-12 h-14 rounded-full tracking-widest"
+          className="text-white bg-blue-600 text-2xl lg:text-3xl px-12 h-14 lg:h-20 rounded-full tracking-widest"
           onClick={onStart}
         >
           START

@@ -77,7 +77,7 @@ export function DurationInput({
     e.preventDefault();
   };
 
-  const inputClassName = `text-black text-center outline-none w-16 ${
+  const inputClassName = `text-black text-center outline-none w-12 ${
     readOnly ? 'lg:w-32' : 'lg:w-20'
   } bg-transparent tracking-wide`;
 

@@ -36,10 +36,13 @@ export function Counter({
     <div className="h-full w-full lg:max-w-screen-md hidden lg:flex justify-center flex-col items-center">
       <div className="flex flex-col justify-between w-full h-3/6 items-center relative">
         <div className="flex flex-1 flex-col items-center z-[1]">
-          <span className="text-blue-600 text-2xl tracking-wider">ROUND</span>
-          <span className="text-4xl text-black" data-testid={'round'}>{`${
-            rounds - roundsLeft
-          }/${rounds}`}</span>
+          <span className="text-blue-600 text-2xl lg:text-3xl tracking-wider">
+            ROUND
+          </span>
+          <span
+            className="text-4xl lg:text-5xl text-black"
+            data-testid={'round'}
+          >{`${rounds - roundsLeft}/${rounds}`}</span>
         </div>
         <div className="flex flex-1 flex-col justify-center items-center">
           <Arc
@@ -48,13 +51,11 @@ export function Counter({
             progress={factor * 100}
             progressPerSecond={stepLength * 100}
           />
-          <div className="z-[1]">
-            <DurationInput value={timeLeft} readOnly dataTestId={'time-left'} />
-          </div>
+          <DurationInput value={timeLeft} readOnly dataTestId={'time-left'} />
         </div>
-        <div className="flex flex-1 flex-col justify-end">
+        <div className="flex flex-1 flex-col justify-end z-10">
           <button
-            className="text-white bg-blue-600 text-2xl px-12 h-14 rounded-full tracking-widest"
+            className="text-white bg-blue-600 text-3xl px-12 h-20 rounded-full tracking-widest"
             onClick={onStop}
           >
             STOP
