@@ -22,6 +22,7 @@ type CounterProps = {
   rounds: number;
   timeTotal: Date;
   onStop: () => void;
+  state: string;
 };
 
 export function Counter({
@@ -30,6 +31,7 @@ export function Counter({
   roundsLeft,
   rounds,
   onStop,
+  state,
 }: CounterProps) {
   const timeLeftInSeconds =
     getSeconds(timeLeft) + getMinutes(timeLeft) * SECONDS_PER_MINUTE;
@@ -60,7 +62,7 @@ export function Counter({
         </div>
         <div className="flex flex-1 flex-col justify-center items-center">
           <Arc
-            key={factor === 0 ? 'arc-from-start' : 'arc-running'}
+            key={state}
             className="absolute origin-center"
             progress={factor * 100}
             progressPerSecond={stepLength * 100}
@@ -99,7 +101,7 @@ export function Counter({
         </div>
         <div className="flex flex-col justify-center items-center relative w-72 h-72 mb-16">
           <Arc
-            key={factor === 0 ? 'arc-from-start' : 'arc-running'}
+            key={state}
             className="absolute origin-center"
             progress={factor * 100}
             progressPerSecond={stepLength * 100}
