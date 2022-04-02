@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* covered by app integration test */
 import { getMinutes, getSeconds, subSeconds } from 'date-fns';
-import { assign, createMachine, send } from 'xstate';
+import { assign, createMachine, MachineConfig, send } from 'xstate';
 
 import { timerStates } from '../model/timerStates';
 import { hasOneSecondElapsed } from '../utils';
@@ -13,6 +13,7 @@ import {
   TimerContext,
   TimerEvent,
   TimerState,
+  TimerStateSchema,
 } from './types';
 
 export const timerEvents = {
@@ -27,6 +28,10 @@ export const timerEvents = {
 };
 
 const SECONDS_PER_MINUTE = 60;
+
+const getIntervalSeconds = (interval: Date): number =>
+  getMinutes(interval) * SECONDS_PER_MINUTE + getSeconds(interval);
+
 const countDown = (ctx: TimerContext): Partial<TimerContext> => {
   return {
     timestamp: Date.now(),
@@ -40,110 +45,117 @@ const shouldCountDown = (ctx: TimerContext): boolean => {
   );
 };
 
-export const timerMachine = createMachine<TimerContext, TimerEvent, TimerState>(
-  {
-    context: {
-      prepareTime: new Date(5000),
-      timeLeft: new Date(5000),
-      rounds: 1,
-      roundsLeft: 0,
-      workInterval: new Date(0),
-      breakInterval: new Date(0),
-      timestamp: Date.now(),
+const timerMachineConfig: MachineConfig<
+  TimerContext,
+  TimerStateSchema,
+  TimerEvent
+> = {
+  context: {
+    prepareTime: new Date(5000),
+    timeLeft: new Date(5000),
+    rounds: 1,
+    roundsLeft: 0,
+    workInterval: new Date(0),
+    breakInterval: new Date(0),
+    timestamp: Date.now(),
+  },
+  initial: timerStates.STOPPED,
+  states: {
+    [timerStates.STOPPED]: {
+      on: {
+        [timerEvents.START]: {
+          target: timerStates.PREWORK,
+          cond: 'isReadyToStart',
+        },
+        [timerEvents.SET_ROUNDS]: {
+          actions: 'assignRounds',
+        },
+        [timerEvents.SET_BREAK_INTERVAL]: {
+          actions: 'assignBreakInterval',
+        },
+        [timerEvents.SET_WORK_INTERVAL]: {
+          actions: 'assignWorkInterval',
+        },
+      },
+      entry: send(timerEvents.STOP),
     },
-    initial: timerStates.STOPPED,
-    states: {
-      [timerStates.STOPPED]: {
-        on: {
-          [timerEvents.START]: {
-            target: timerStates.PREWORK,
+    [timerStates.PREWORK]: {
+      on: {
+        [timerEvents.STOP]: timerStates.STOPPED,
+        [timerEvents.TICK]: [
+          {
+            actions: ['countDown', 'countDownLastBreakEffect'],
+            cond: 'shouldCountDownLast',
           },
-          [timerEvents.SET_ROUNDS]: {
-            actions: 'assignRounds',
+          {
+            actions: 'countDown',
+            cond: 'shouldCountDown',
           },
-          [timerEvents.SET_BREAK_INTERVAL]: {
-            actions: 'assignBreakInterval',
-          },
-          [timerEvents.SET_WORK_INTERVAL]: {
-            actions: 'assignWorkInterval',
-          },
-        },
-        entry: send(timerEvents.STOP),
+        ],
       },
-      [timerStates.PREWORK]: {
-        on: {
-          [timerEvents.STOP]: timerStates.STOPPED,
-          [timerEvents.TICK]: [
-            {
-              actions: ['countDown', 'countDownLastBreakEffect'],
-              cond: 'shouldCountDownLast',
-            },
-            {
-              actions: 'countDown',
-              cond: 'shouldCountDown',
-            },
-          ],
-          '': [
-            {
-              target: timerStates.STOPPED,
-              cond: 'isDone',
-            },
-            {
-              target: timerStates.WORK,
-              cond: 'shouldTransition',
-            },
-          ],
+      always: [
+        {
+          target: timerStates.STOPPED,
+          cond: 'isDone',
         },
-        entry: 'initPrepare',
-      },
-      [timerStates.WORK]: {
-        on: {
-          [timerEvents.STOP]: timerStates.STOPPED,
-          [timerEvents.TICK]: [
-            {
-              actions: ['countDown', 'countDownLastWorkEffect'],
-              cond: 'shouldCountDownLast',
-            },
-            {
-              actions: 'countDown',
-              cond: 'shouldCountDown',
-            },
-          ],
-          '': [
-            {
-              target: timerStates.STOPPED,
-              cond: 'isDone',
-            },
-            {
-              target: timerStates.BREAK,
-              cond: 'shouldTransition',
-            },
-          ],
+        {
+          target: timerStates.WORK,
+          cond: 'shouldTransition',
         },
-        entry: ['initWork', 'initWorkEffect'],
-      },
-      [timerStates.BREAK]: {
-        on: {
-          [timerEvents.STOP]: timerStates.STOPPED,
-          [timerEvents.TICK]: [
-            {
-              actions: ['countDown', 'countDownLastBreakEffect'],
-              cond: 'shouldCountDownLast',
-            },
-            {
-              actions: 'countDown',
-              cond: 'shouldCountDown',
-            },
-          ],
-          '': {
-            target: timerStates.WORK,
-            cond: 'shouldTransition',
+      ],
+      entry: 'initPrepare',
+    },
+    [timerStates.WORK]: {
+      on: {
+        [timerEvents.STOP]: timerStates.STOPPED,
+        [timerEvents.TICK]: [
+          {
+            actions: ['countDown', 'countDownLastWorkEffect'],
+            cond: 'shouldCountDownLast',
           },
-        },
-        entry: ['initBreak', 'initBreakEffect'],
+          {
+            actions: 'countDown',
+            cond: 'shouldCountDown',
+          },
+        ],
       },
+      always: [
+        {
+          target: timerStates.STOPPED,
+          cond: 'isDone',
+        },
+        {
+          target: timerStates.BREAK,
+          cond: 'shouldTransition',
+        },
+      ],
+      entry: ['initWork', 'initWorkEffect'],
+    },
+    [timerStates.BREAK]: {
+      on: {
+        [timerEvents.STOP]: timerStates.STOPPED,
+        [timerEvents.TICK]: [
+          {
+            actions: ['countDown', 'countDownLastBreakEffect'],
+            cond: 'shouldCountDownLast',
+          },
+          {
+            actions: 'countDown',
+            cond: 'shouldCountDown',
+          },
+        ],
+      },
+      always: {
+        target: timerStates.WORK,
+        cond: 'shouldTransition',
+      },
+      entry: ['initBreak', 'initBreakEffect'],
     },
   },
+};
+
+export const timerMachine = createMachine<TimerContext, TimerEvent, TimerState>(
+  timerMachineConfig,
   {
     actions: {
       assignBreakInterval: assign({
@@ -164,7 +176,7 @@ export const timerMachine = createMachine<TimerContext, TimerEvent, TimerState>(
       initWorkEffect: () => {
         // test stub
       },
-      initBreakEffeet: () => {
+      initBreakEffect: () => {
         // test stub
       },
       countDown: assign(countDown),
@@ -219,15 +231,13 @@ export const timerMachine = createMachine<TimerContext, TimerEvent, TimerState>(
         );
       },
       shouldCountDown,
+      isReadyToStart: ({ rounds, workInterval }) =>
+        rounds > 0 && getIntervalSeconds(workInterval) > 0,
       isDone: (ctx) => {
         return (
           getMinutes(ctx.timeLeft) <= 0 &&
           getSeconds(ctx.timeLeft) <= 0 &&
-          (ctx.roundsLeft <= 0 ||
-            (getMinutes(ctx.workInterval) === 0 &&
-              getSeconds(ctx.workInterval) === 0) ||
-            (getMinutes(ctx.breakInterval) === 0 &&
-              getSeconds(ctx.breakInterval) === 0))
+          (ctx.roundsLeft <= 0 || getIntervalSeconds(ctx.workInterval) === 0)
         );
       },
     },
