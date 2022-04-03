@@ -52,7 +52,7 @@ export function Counter({
           <ThemeToggle />
         </div>
       </div>
-      <div className="flex flex-col lg:max-w-screen-md justify-between w-full h-3/6 items-center relative">
+      <div className="flex flex-col max-w-screen-sm xl:max-w-screen-md justify-between w-full h-4/6 xl:h-3/6 items-center relative">
         <div className="flex flex-1 flex-col items-center z-[1]">
           <span className="text-blue-600 text-3xl tracking-wider">ROUND</span>
           <span
