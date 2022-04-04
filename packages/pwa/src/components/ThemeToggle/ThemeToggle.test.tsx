@@ -11,14 +11,14 @@ describe('ThemeToggle', () => {
   });
 
   it.each`
-    iconName       | mode
-    ${'Sun icon'}  | ${'dark'}
-    ${'Moon icon'} | ${'light'}
+    iconName               | mode
+    ${'Toggle light mode'} | ${'dark'}
+    ${'Toggle dark mode'}  | ${'light'}
   `('should work for $mode mode', async ({ iconName, mode }) => {
     const setTheme = jest.fn();
     jest
       .spyOn(nextThemes, 'useTheme')
-      .mockReturnValue({ theme: mode, setTheme });
+      .mockReturnValue({ resolvedTheme: mode, setTheme });
     render(<ThemeToggle />);
 
     expect(
