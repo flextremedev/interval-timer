@@ -10,7 +10,7 @@ const MoonIcon = () => {
       aria-labelledby="toggle-dark-mode-title"
       role="img"
     >
-      <title id="toggle-dark-mode-title">Moon icon</title>
+      <title id="toggle-dark-mode-title">Toggle dark mode</title>
       <path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z" />
     </svg>
   );
@@ -28,7 +28,7 @@ const SunIcon = () => {
       aria-labelledby="toggle-light-mode-title"
       role="img"
     >
-      <title id="toggle-light-mode-title">Sun icon</title>
+      <title id="toggle-light-mode-title">Toggle light mode</title>
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
