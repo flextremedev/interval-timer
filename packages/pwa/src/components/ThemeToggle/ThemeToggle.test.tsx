@@ -18,7 +18,7 @@ describe('ThemeToggle', () => {
     const setTheme = jest.fn();
     jest
       .spyOn(nextThemes, 'useTheme')
-      .mockReturnValue({ theme: mode, setTheme });
+      .mockReturnValue({ resolvedTheme: mode, setTheme });
     render(<ThemeToggle />);
 
     expect(

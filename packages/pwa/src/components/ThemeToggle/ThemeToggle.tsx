@@ -39,9 +39,9 @@ const SunIcon = () => {
 };
 
 export const ThemeToggle = () => {
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const toggleTheme = () => {
-    setTheme(theme === 'light' ? 'dark' : 'light');
+    setTheme(resolvedTheme === 'light' ? 'dark' : 'light');
   };
   return (
     <button
@@ -49,7 +49,7 @@ export const ThemeToggle = () => {
       style={{ WebkitTapHighlightColor: 'transparent' }}
       onClick={toggleTheme}
     >
-      {theme === 'light' ? <MoonIcon /> : <SunIcon />}
+      {resolvedTheme === 'light' ? <MoonIcon /> : <SunIcon />}
     </button>
   );
 };
