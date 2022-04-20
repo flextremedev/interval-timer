@@ -52,15 +52,15 @@ export function Counter({
           <ThemeToggle />
         </div>
       </div>
-      <div className="flex flex-col max-w-screen-sm xl:max-w-screen-md justify-between w-full h-4/6 xl:h-3/6 items-center relative">
-        <div className="flex flex-1 flex-col items-center z-[1]">
+      <div className="flex flex-col max-w-screen-sm 2xl:max-w-screen-md justify-evenly w-full h-full max-h-[640px] 2xl:max-h-[768px] items-center relative">
+        <div className="flex flex-col items-center z-[1]">
           <span className="text-blue-600 text-3xl tracking-wider">ROUND</span>
           <span
             className="text-black dark:text-white text-5xl"
             data-testid={'round'}
           >{`${rounds - roundsLeft}/${rounds}`}</span>
         </div>
-        <div className="flex flex-1 flex-col justify-center items-center">
+        <div className="flex flex-col justify-center items-center">
           <Arc
             key={state}
             className="absolute origin-center"
@@ -69,7 +69,7 @@ export function Counter({
           />
           <DurationInput value={timeLeft} readOnly dataTestId={'time-left'} />
         </div>
-        <div className="flex flex-1 flex-col justify-end z-10">
+        <div className="flex flex-col justify-end z-10">
           <button
             className="text-white bg-blue-600 text-3xl px-12 h-20 rounded-full tracking-widest"
             onClick={onStop}
