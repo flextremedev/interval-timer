@@ -78,7 +78,7 @@ export function DurationInput({
   };
 
   const inputClassName = `text-black dark:text-white text-center outline-none w-12 ${
-    readOnly ? 'lg:w-32' : 'lg:w-20'
+    readOnly ? 'lg:w-28 2xl:w-32' : 'lg:w-20'
   } bg-transparent tracking-wide`;
 
   return (
@@ -90,7 +90,7 @@ export function DurationInput({
       ) : null}
       <div
         className={`flex flex-row justify-center items-center text-black dark:text-white text-6xl ${
-          readOnly ? 'lg:text-[180px]' : 'lg:text-8xl'
+          readOnly ? 'lg:text-[128px] 2xl:text-[180px]' : 'lg:text-8xl'
         } box-content w-full`}
       >
         <input
