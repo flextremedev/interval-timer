@@ -1,4 +1,6 @@
-import { timerStates } from '../model/timerStates';
+import { StateSchema } from 'xstate';
+
+import { timerStates, TimerSubState } from '../model/timerStates';
 
 export type TimerContext = {
   prepareTime: Date;
@@ -26,7 +28,7 @@ export type SetWorkIntervalEvent = {
 };
 
 export type BaseEvent = {
-  type: 'START' | 'STOP' | 'BREAK' | 'WORK' | 'TICK';
+  type: 'START' | 'STOP' | 'BREAK' | 'WORK' | 'TICK' | 'PAUSE';
 };
 export type TimerEvent =
   | SetRoundsEvent
@@ -34,8 +36,12 @@ export type TimerEvent =
   | SetWorkIntervalEvent
   | BaseEvent;
 
+type TimerNestedStateSchema = {
+  states: Record<TimerSubState, StateSchema>;
+};
+
 export type TimerStateSchema = {
-  states: Record<keyof typeof timerStates, Record<string, unknown>>;
+  states: Record<keyof typeof timerStates, TimerNestedStateSchema>;
 };
 
 export type TimerState = {
