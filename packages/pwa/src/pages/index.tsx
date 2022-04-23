@@ -109,6 +109,8 @@ export default function Home() {
     prepareTime,
   } = state.context;
 
+  const parentState = state.toStrings()[0];
+
   return (
     <>
       <Head>
@@ -132,11 +134,11 @@ export default function Home() {
           />
         ) : (
           <Counter
-            state={String(state.value)}
+            state={parentState}
             timeTotal={getActiveTimeTotal({
               breakInterval,
               prepareTime,
-              value: state.value,
+              value: parentState,
               workInterval,
             })}
             timeLeft={timeLeft}

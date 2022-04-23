@@ -3,7 +3,7 @@
 import { getMinutes, getSeconds, subSeconds } from 'date-fns';
 import { assign, createMachine, MachineConfig, send } from 'xstate';
 
-import { timerStates } from '../model/timerStates';
+import { timerStates, TimerSubState } from '../model/timerStates';
 import { hasOneSecondElapsed } from '../utils';
 
 import {
@@ -16,12 +16,13 @@ import {
   TimerStateSchema,
 } from './types';
 
-export const timerEvents = {
+export const timerEvents: Record<TimerEvent['type'], TimerEvent['type']> = {
   START: 'START',
   WORK: 'WORK',
   BREAK: 'BREAK',
   STOP: 'STOP',
   TICK: 'TICK',
+  PAUSE: 'PAUSE',
   SET_ROUNDS: 'SET_ROUNDS',
   SET_WORK_INTERVAL: 'SET_WORK_INTERVAL',
   SET_BREAK_INTERVAL: 'SET_BREAK_INTERVAL',
@@ -82,16 +83,29 @@ const timerMachineConfig: MachineConfig<
     [timerStates.PREWORK]: {
       on: {
         [timerEvents.STOP]: timerStates.STOPPED,
-        [timerEvents.TICK]: [
-          {
-            actions: ['countDown', 'countDownLastBreakEffect'],
-            cond: 'shouldCountDownLast',
+      },
+      initial: TimerSubState.RUNNING,
+      states: {
+        [TimerSubState.RUNNING]: {
+          on: {
+            [timerEvents.TICK]: [
+              {
+                actions: ['countDown', 'countDownLastBreakEffect'],
+                cond: 'shouldCountDownLast',
+              },
+              {
+                actions: 'countDown',
+                cond: 'shouldCountDown',
+              },
+            ],
+            [timerEvents.PAUSE]: TimerSubState.PAUSED,
           },
-          {
-            actions: 'countDown',
-            cond: 'shouldCountDown',
+        },
+        [TimerSubState.PAUSED]: {
+          on: {
+            [timerEvents.PAUSE]: TimerSubState.RUNNING,
           },
-        ],
+        },
       },
       always: [
         {
@@ -108,17 +122,31 @@ const timerMachineConfig: MachineConfig<
     [timerStates.WORK]: {
       on: {
         [timerEvents.STOP]: timerStates.STOPPED,
-        [timerEvents.TICK]: [
-          {
-            actions: ['countDown', 'countDownLastWorkEffect'],
-            cond: 'shouldCountDownLast',
-          },
-          {
-            actions: 'countDown',
-            cond: 'shouldCountDown',
-          },
-        ],
       },
+      initial: TimerSubState.RUNNING,
+      states: {
+        [TimerSubState.RUNNING]: {
+          on: {
+            [timerEvents.TICK]: [
+              {
+                actions: ['countDown', 'countDownLastWorkEffect'],
+                cond: 'shouldCountDownLast',
+              },
+              {
+                actions: 'countDown',
+                cond: 'shouldCountDown',
+              },
+            ],
+            [timerEvents.PAUSE]: TimerSubState.PAUSED,
+          },
+        },
+        [TimerSubState.PAUSED]: {
+          on: {
+            [timerEvents.PAUSE]: TimerSubState.RUNNING,
+          },
+        },
+      },
+      entry: ['initWork', 'initWorkEffect'],
       always: [
         {
           target: timerStates.STOPPED,
@@ -129,21 +157,33 @@ const timerMachineConfig: MachineConfig<
           cond: 'shouldTransition',
         },
       ],
-      entry: ['initWork', 'initWorkEffect'],
     },
     [timerStates.BREAK]: {
       on: {
         [timerEvents.STOP]: timerStates.STOPPED,
-        [timerEvents.TICK]: [
-          {
-            actions: ['countDown', 'countDownLastBreakEffect'],
-            cond: 'shouldCountDownLast',
+      },
+      initial: TimerSubState.RUNNING,
+      states: {
+        [TimerSubState.RUNNING]: {
+          on: {
+            [timerEvents.TICK]: [
+              {
+                actions: ['countDown', 'countDownLastBreakEffect'],
+                cond: 'shouldCountDownLast',
+              },
+              {
+                actions: 'countDown',
+                cond: 'shouldCountDown',
+              },
+            ],
+            [timerEvents.PAUSE]: TimerSubState.PAUSED,
           },
-          {
-            actions: 'countDown',
-            cond: 'shouldCountDown',
+        },
+        [TimerSubState.PAUSED]: {
+          on: {
+            [timerEvents.PAUSE]: TimerSubState.RUNNING,
           },
-        ],
+        },
       },
       always: {
         target: timerStates.WORK,

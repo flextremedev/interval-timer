@@ -13,3 +13,8 @@ export const timerStates: TTimerStates = {
   WORK: 'WORK',
   BREAK: 'BREAK',
 };
+
+export enum TimerSubState {
+  RUNNING = 'RUNNING',
+  PAUSED = 'PAUSED',
+}
