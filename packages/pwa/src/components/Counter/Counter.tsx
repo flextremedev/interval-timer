@@ -22,6 +22,7 @@ type CounterProps = {
   rounds: number;
   timeTotal: Date;
   onStop: () => void;
+  onPause: () => void;
   state: string;
 };
 
@@ -31,6 +32,7 @@ export function Counter({
   roundsLeft,
   rounds,
   onStop,
+  onPause,
   state,
 }: CounterProps) {
   const timeLeftInSeconds =
@@ -52,7 +54,7 @@ export function Counter({
           <ThemeToggle />
         </div>
       </div>
-      <div className="flex flex-col w-[min(75vh,50vw)] h-[min(75vh,50vw)] justify-evenly items-center relative">
+      <div className="flex flex-col w-[min(75vh,50vw)] h-[min(75vh,50vw)] justify-evenly py-8 items-center relative">
         <div className="flex flex-col items-center z-[1]">
           <span className="text-blue-600 text-2xl 2xl:text-3xl tracking-wider">
             ROUND
@@ -71,13 +73,23 @@ export function Counter({
           />
           <DurationInput value={timeLeft} readOnly dataTestId={'time-left'} />
         </div>
-        <div className="flex flex-col justify-end z-10">
-          <button
-            className="text-white bg-blue-600 text-2xl 2xl:text-3xl px-12 h-16 2xl:h-20 rounded-full tracking-widest"
-            onClick={onStop}
-          >
-            STOP
-          </button>
+        <div className="flex justify-center z-10 w-full mb-8">
+          <div className="flex flex-1 justify-end">
+            <button
+              className="text-white bg-blue-600 text-2xl 2xl:text-3xl px-12 h-16 2xl:h-20 rounded-full tracking-widest mr-4"
+              onClick={onStop}
+            >
+              STOP
+            </button>
+          </div>
+          <div className="flex-1">
+            <button
+              className="text-white bg-blue-600 text-2xl 2xl:text-3xl px-12 h-16 2xl:h-20 rounded-full tracking-widest ml-4"
+              onClick={onPause}
+            >
+              PAUSE
+            </button>
+          </div>
         </div>
       </div>
       <div />
@@ -113,13 +125,23 @@ export function Counter({
           </div>
         </div>
       </div>
-      <div className="flex-1 flex flex-col justify-center">
-        <button
-          className="text-white bg-blue-600 text-2xl px-12 h-14 rounded-full tracking-widest"
-          onClick={onStop}
-        >
-          STOP
-        </button>
+      <div className="flex-1 flex justify-center w-full">
+        <div className="flex flex-1 justify-end">
+          <button
+            className="text-white bg-blue-600 text-2xl px-12 h-14 rounded-full tracking-widest mr-4"
+            onClick={onStop}
+          >
+            STOP
+          </button>
+        </div>
+        <div className="flex-1">
+          <button
+            className="text-white bg-blue-600 text-2xl px-12 h-14 rounded-full tracking-widest ml-4"
+            onClick={onPause}
+          >
+            PAUSE
+          </button>
+        </div>
       </div>
     </div>
   );
