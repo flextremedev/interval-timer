@@ -82,6 +82,10 @@ export default function Home() {
     send('STOP');
   };
 
+  const pauseTimer = () => {
+    send('PAUSE');
+  };
+
   const setRounds = (rounds: number) => {
     send({ type: 'SET_ROUNDS', rounds: Number(rounds) });
   };
@@ -145,6 +149,7 @@ export default function Home() {
             roundsLeft={roundsLeft}
             rounds={rounds}
             onStop={stopTimer}
+            onPause={pauseTimer}
           />
         )}
       </main>
