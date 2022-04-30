@@ -168,7 +168,7 @@ const timerMachineConfig: MachineConfig<
           on: {
             [timerEvents.TICK]: [
               {
-                actions: ['countDown', 'countDownLastWorkEffect'],
+                actions: ['countDown', 'countDownLastBreakEffect'],
                 cond: 'shouldCountDownLast',
               },
               {
