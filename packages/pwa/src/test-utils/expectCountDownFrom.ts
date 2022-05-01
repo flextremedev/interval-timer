@@ -34,17 +34,22 @@ export const expectCountDownFrom = ({
       : 59;
 
     expect(timeLeftMinutes.value).toBe(toTwoDigitString(minutesLeft));
-
+    let done = false;
     for (
       let secondsLeft = secondsToCountInMinute;
-      secondsLeft >= (isLastMinute(minutesLeft) ? toSeconds : 0);
-      secondsLeft--
+      secondsLeft >= (isLastMinute(minutesLeft) ? toSeconds : 0) && !done;
+
     ) {
       expect(timeLeftSeconds.value).toBe(toTwoDigitString(secondsLeft));
-      advanceDateNowBy(ONE_SECOND_IN_MS);
-      act(() => {
-        jest.advanceTimersByTime(ONE_SECOND_IN_MS);
-      });
+      if (isLastMinute(minutesLeft) ? secondsLeft > toSeconds : true) {
+        secondsLeft -= 1;
+        advanceDateNowBy(ONE_SECOND_IN_MS);
+        act(() => {
+          jest.advanceTimersByTime(ONE_SECOND_IN_MS);
+        });
+      } else {
+        done = true;
+      }
     }
     firstRound = false;
   }
