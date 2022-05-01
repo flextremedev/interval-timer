@@ -1,3 +1,4 @@
+import { TimerSubState } from '@interval-timer/core';
 import { getMinutes, getSeconds } from 'date-fns';
 import dynamic from 'next/dynamic';
 import * as React from 'react';
@@ -23,7 +24,7 @@ type CounterProps = {
   timeTotal: Date;
   onStop: () => void;
   onPause: () => void;
-  state: string;
+  stateValues: string[];
 };
 
 export function Counter({
@@ -33,7 +34,7 @@ export function Counter({
   rounds,
   onStop,
   onPause,
-  state,
+  stateValues,
 }: CounterProps) {
   const timeLeftInSeconds =
     getSeconds(timeLeft) + getMinutes(timeLeft) * SECONDS_PER_MINUTE;
@@ -45,6 +46,8 @@ export function Counter({
   const factor = 1 - timeLeftInSeconds / timeTotalInSeconds;
 
   const stepLength = 1 - timeLeftAdvancedByOneInSeconds / timeTotalInSeconds;
+
+  const [parentState, childState] = stateValues;
 
   const counterDesktop = (
     <div className="h-full w-full lg:max-w-screen-xl hidden lg:flex justify-between flex-col items-center">
@@ -66,7 +69,7 @@ export function Counter({
         </div>
         <div className="flex flex-col justify-center items-center">
           <Arc
-            key={state}
+            key={parentState}
             className="absolute origin-center"
             progress={factor * 100}
             progressPerSecond={stepLength * 100}
@@ -87,7 +90,7 @@ export function Counter({
               className="text-white bg-blue-600 text-2xl 2xl:text-3xl px-12 h-16 2xl:h-20 rounded-full tracking-widest ml-4"
               onClick={onPause}
             >
-              PAUSE
+              {childState.endsWith(TimerSubState.RUNNING) ? 'PAUSE' : 'RESUME'}
             </button>
           </div>
         </div>
@@ -115,7 +118,7 @@ export function Counter({
         </div>
         <div className="flex flex-col justify-center items-center relative w-72 h-72 mb-16">
           <Arc
-            key={state}
+            key={parentState}
             className="absolute origin-center"
             progress={factor * 100}
             progressPerSecond={stepLength * 100}
@@ -139,7 +142,7 @@ export function Counter({
             className="text-white bg-blue-600 text-2xl px-12 h-14 rounded-full tracking-widest ml-4"
             onClick={onPause}
           >
-            PAUSE
+            {childState.endsWith(TimerSubState.RUNNING) ? 'PAUSE' : 'RESUME'}
           </button>
         </div>
       </div>

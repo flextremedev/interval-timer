@@ -138,7 +138,7 @@ export default function Home() {
           />
         ) : (
           <Counter
-            state={parentState}
+            stateValues={state.toStrings()}
             timeTotal={getActiveTimeTotal({
               breakInterval,
               prepareTime,
