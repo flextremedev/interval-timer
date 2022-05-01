@@ -274,7 +274,7 @@ describe('Home', () => {
     fireEvent.click(screen.getAllByRole('button', { name: /pause/i })[0]);
 
     // 2, 1
-    fireEvent.click(screen.getAllByRole('button', { name: /pause/i })[0]);
+    fireEvent.click(screen.getAllByRole('button', { name: /resume/i })[0]);
     advanceOneSecond();
     expectCountDownFrom({
       minutes: 0,
