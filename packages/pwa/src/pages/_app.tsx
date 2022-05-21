@@ -16,7 +16,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
         />
         <meta
           name="description"
-          content="Time your intervals for free. Tabata, crossfit, interval training, deep focus, use it for whatever you like."
+          content="Time your intervals online for free. Tabata, crossfit, interval training, deep focus, use it for whatever you like. Install this app on your mobile phone and use it offline as well."
         />
         <link rel="manifest" href="/manifest.json" />
         <link
