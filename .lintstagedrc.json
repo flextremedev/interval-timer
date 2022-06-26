@@ -1,0 +1,4 @@
+{
+  "*.md": "prettier --write",
+  "**/src/**/*.{ts,tsx,js,jsx}": ["eslint --quiet --fix", "prettier --write"]
+}
