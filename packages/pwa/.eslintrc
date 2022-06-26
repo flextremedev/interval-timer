@@ -1,6 +1,9 @@
 {
   "root": true,
-  "extends": "@flextremedev/eslint-config-react-typescript",
+  "extends": [
+    "plugin:@next/next/recommended",
+    "@flextremedev/eslint-config-react-typescript"
+  ],
   "rules": {
     "@typescript-eslint/explicit-function-return-type": "warn"
   },
